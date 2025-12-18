@@ -2,6 +2,38 @@
 
 A system that generates unique visual art by combining mathematical functions, randomness, and generative model concepts (VAE/GAN), displayed in a web-based gallery.
 
+## Quick Start
+
+### For Web Gallery (Netlify Deployment)
+
+1. **Deploy to Netlify:**
+   - Go to [netlify.com](https://netlify.com)
+   - Drag and drop the project folder
+   - Your gallery is live!
+
+2. **Or test locally:**
+   ```bash
+   python -m http.server 8000
+   # Open http://localhost:8000/gallery.html
+   ```
+
+### For Python Backend
+
+1. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. **Generate art data:**
+   ```bash
+   python generate_art_data.py --samples 5 --width 256 --height 256
+   ```
+
+3. **Generate with automation:**
+   ```bash
+   python automate_generation.py --n 10 --seed-start 1000
+   ```
+
 ## Project Structure
 
 ```
@@ -14,12 +46,7 @@ Algorithmic-Visual-Synthesis/
 ├── gallery.css                 # Web gallery styling (Step 5)
 ├── gallery.js                  # Web gallery JavaScript (Step 5)
 ├── export_for_web.py          # Export script for web
-├── DEPLOYMENT.md               # Deployment guide (Step 6)
-├── netlify.toml                # Netlify configuration
-├── vercel.json                 # Vercel configuration
-├── .nojekyll                   # GitHub Pages configuration
-├── deploy.sh                   # Deployment script (Linux/Mac)
-├── deploy.bat                  # Deployment script (Windows)
+├── netlify.toml                # Netlify configuration (Step 6)
 ├── config_automation.json      # Automation configuration
 ├── requirements.txt            # Python dependencies
 └── README.md                   # This file
@@ -252,17 +279,29 @@ best_patterns = gan.generate_best(
 )
 ```
 
-#### Running the Demo
+#### Example Usage
 
-```bash
-python demo_generative_models.py
+```python
+# VAE encoding/decoding example
+from generative_models import VariationalAutoEncoder
+from generate_art_data import ArtDataGenerator
+import numpy as np
+
+vae = VariationalAutoEncoder(latent_dim=16)
+generator = ArtDataGenerator(width=256, height=256)
+
+# Encode and decode
+params = {'frequency': 5.0, 'phase': np.pi/4}
+mean, log_var = vae.encode(params)
+latent = vae.sample_latent(mean, log_var, seed=42)
+pattern = vae.decode(latent, 'sine_wave', generator)
+
+# GAN generation example
+from generative_models import GenerativeAdversarialNetwork
+
+gan = GenerativeAdversarialNetwork(width=256, height=256)
+best_patterns = gan.generate_best(n_candidates=50, n_best=10, seed=42)
 ```
-
-This will:
-- Demonstrate VAE encoding/decoding
-- Show GAN generation and filtering
-- Visualize results (if matplotlib is installed)
-- Save high-quality patterns to CSV
 
 ### Model Components
 
@@ -425,18 +464,21 @@ for pattern, ptype, params, score in best_patterns:
     )
 ```
 
-### Running the Demo
+### Example Usage
 
-```bash
-python demo_art_visualization.py
+```python
+from art_visualization import ArtVisualizer, batch_visualize_from_csv
+from generate_art_data import ArtDataGenerator
+
+# Generate and visualize
+visualizer = ArtVisualizer()
+generator = ArtDataGenerator(width=256, height=256)
+pattern = generator.sine_wave(frequency=5.0)
+visualizer.visualize_pattern(pattern, colormap='plasma', save_path='output/sine_wave.png')
+
+# Batch process CSV
+batch_visualize_from_csv('data/art_dataset.csv', output_dir='output/images')
 ```
-
-This will:
-- Generate and visualize patterns with different colormaps
-- Create galleries
-- Show VAE/GAN generated art
-- Process CSV files
-- Save all images to `output/images/`
 
 ### Output Structure
 
@@ -583,18 +625,18 @@ Each artwork includes complete metadata:
 }
 ```
 
-### Running the Demo
+### Example Usage
 
-```bash
-python demo_automation.py
+```python
+from automate_generation import ArtAutomation
+
+# Basic automation
+automation = ArtAutomation(output_dir='output/automated')
+artworks = automation.batch_generate(n_artworks=10, seed_start=1000)
+
+# Diverse collection (standard + VAE + GAN)
+artworks = automation.generate_diverse_collection(n_artworks=30, seed_start=10000)
 ```
-
-This demonstrates:
-- Basic automation
-- VAE-based generation
-- GAN-filtered generation
-- Diverse collections
-- Custom parameters
 
 ### Configuration
 
@@ -675,11 +717,11 @@ python export_for_web.py --n 20 --seed-start 1000
 ### File Structure
 
 ```
-web_gallery/
+Algorithmic-Visual-Synthesis/
 ├── gallery.html          # Main gallery page
 ├── gallery.css           # Styling
 ├── gallery.js            # JavaScript for art generation
-└── images/              # Exported images (optional)
+└── (images/ directory created when exporting)
     └── artwork_*.png
 ```
 
@@ -738,22 +780,14 @@ Deploy your Algorithmic Visual Synthesis gallery to the web and share it with th
 
 ### Quick Deploy Options
 
-#### 1. GitHub Pages (Recommended for Free Hosting)
-
-**Steps:**
-1. Create GitHub repository
-2. Push your code
-3. Enable GitHub Pages in repository settings
-4. Your site is live at `https://yourusername.github.io/algorithmic-visual-synthesis/`
-
-**See `DEPLOYMENT.md` for detailed instructions.**
-
-#### 2. Netlify (Fast, Free, Easy)
+#### Netlify (Recommended - Fast, Free, Easy)
 
 **Steps:**
 1. Go to [netlify.com](https://netlify.com)
-2. Drag and drop your project folder
-3. Your site is live instantly!
+2. Sign up/login (free account)
+3. Click "Add new site" → "Import an existing project"
+4. Drag and drop your project folder (or connect to Git)
+5. Your site is live instantly!
 
 **Or use CLI:**
 ```bash
@@ -761,47 +795,29 @@ npm install -g netlify-cli
 netlify deploy --prod
 ```
 
-#### 3. Vercel (Modern, Fast)
+**Configuration:**
+- The `netlify.toml` file is already configured
+- No build step needed (static site)
+- Automatic HTTPS enabled
+- Custom domain support
 
-**Steps:**
+#### Other Options
+
+**GitHub Pages:**
+1. Create GitHub repository
+2. Push your code
+3. Enable GitHub Pages in repository settings
+4. Your site is live at `https://yourusername.github.io/algorithmic-visual-synthesis/`
+
+**Vercel:**
 1. Go to [vercel.com](https://vercel.com)
 2. Import your Git repository
 3. Deploy automatically
 
-**Or use CLI:**
+**Local Testing:**
 ```bash
-npm install -g vercel
-vercel --prod
-```
-
-### Deployment Files
-
-- **`DEPLOYMENT.md`**: Complete deployment guide
-- **`netlify.toml`**: Netlify configuration
-- **`vercel.json`**: Vercel configuration
-- **`.nojekyll`**: GitHub Pages configuration
-- **`deploy.sh`**: Deployment script (Linux/Mac)
-- **`deploy.bat`**: Deployment script (Windows)
-
-### Using Deployment Scripts
-
-**Linux/Mac:**
-```bash
-chmod +x deploy.sh
-./deploy.sh check      # Check readiness
-./deploy.sh github     # Deploy to GitHub Pages
-./deploy.sh netlify    # Deploy to Netlify
-./deploy.sh vercel     # Deploy to Vercel
-./deploy.sh local      # Start local server
-```
-
-**Windows:**
-```cmd
-deploy.bat check      # Check readiness
-deploy.bat github     # Deploy to GitHub Pages
-deploy.bat netlify    # Deploy to Netlify
-deploy.bat vercel     # Deploy to Vercel
-deploy.bat local      # Start local server
+python -m http.server 8000
+# Then visit: http://localhost:8000/gallery.html
 ```
 
 ### Pre-Deployment Checklist
@@ -829,14 +845,12 @@ Once deployed, share your gallery:
 - QR codes
 - Direct links
 
-### Documentation
+### Deployment Tips
 
-See **`DEPLOYMENT.md`** for:
-- Detailed deployment instructions
-- Custom domain setup
-- Performance optimization
-- Troubleshooting
-- Analytics integration
+- **Netlify**: The `netlify.toml` file is pre-configured with redirects and security headers
+- **Custom Domain**: Add your domain in Netlify dashboard → Site settings → Domain management
+- **Performance**: All static files are automatically optimized and cached
+- **HTTPS**: Automatically enabled on Netlify
 
 ### Next Steps
 
