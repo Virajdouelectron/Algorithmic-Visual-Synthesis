@@ -1,0 +1,374 @@
+/* Modern Gallery Styling */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #6366f1;
+    --secondary-color: #8b5cf6;
+    --accent-color: #ec4899;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-hover: #334155;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --border-color: #334155;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Navigation Controls */
+.controls {
+    background: var(--bg-card);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 120px;
+    z-index: 99;
+}
+
+.controls .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.control-group label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+/* Select Dropdowns */
+select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+select:hover {
+    border-color: var(--primary-color);
+    background: var(--bg-card);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+    min-height: 400px;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+}
+
+/* Artwork Card */
+.artwork-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.artwork-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.artwork-image-container {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* Square aspect ratio */
+    background: var(--bg-dark);
+    overflow: hidden;
+}
+
+.artwork-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.artwork-image:hover {
+    transform: scale(1.05);
+}
+
+.artwork-info {
+    padding: 1rem;
+}
+
+.artwork-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.artwork-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.artwork-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+    font-weight: 500;
+}
+
+.btn-download {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-download:hover {
+    background: var(--secondary-color);
+}
+
+.btn-delete {
+    background: #475569;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #64748b;
+}
+
+/* Loading State */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .controls .container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .control-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .control-group label {
+        margin-bottom: 0.5rem;
+    }
+    
+    select {
+        width: 100%;
+    }
+    
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .controls {
+        top: 100px;
+    }
+}
+
+/* Footer */
+footer {
+    background: var(--bg-card);
+    padding: 2rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+    color: var(--text-secondary);
+}
+
+footer p {
+    margin: 0.5rem 0;
+}
+
+/* Animation for new artworks */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.artwork-card.new {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+

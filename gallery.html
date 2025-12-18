@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithmic Visual Synthesis - Art Gallery</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🎨 Algorithmic Visual Synthesis</h1>
+            <p class="subtitle">Generative Art Gallery</p>
+        </div>
+    </header>
+
+    <nav class="controls">
+        <div class="container">
+            <div class="control-group">
+                <button id="generateBtn" class="btn btn-primary">Generate New Art</button>
+                <button id="generateBatchBtn" class="btn btn-secondary">Generate Batch (9)</button>
+                <button id="clearBtn" class="btn btn-danger">Clear Gallery</button>
+            </div>
+            <div class="control-group">
+                <label for="patternSelect">Pattern Type:</label>
+                <select id="patternSelect">
+                    <option value="sine">Sine Wave</option>
+                    <option value="cosine">Cosine Wave</option>
+                    <option value="spiral">Spiral</option>
+                    <option value="interference">Wave Interference</option>
+                    <option value="perlin">Perlin Noise</option>
+                    <option value="radial">Radial Gradient</option>
+                    <option value="random">Random</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="colormapSelect">Colormap:</label>
+                <select id="colormapSelect">
+                    <option value="viridis">Viridis</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="inferno">Inferno</option>
+                    <option value="magma">Magma</option>
+                    <option value="turbo">Turbo</option>
+                    <option value="rainbow">Rainbow</option>
+                    <option value="sunset">Sunset</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="aurora">Aurora</option>
+                    <option value="cyberpunk">Cyberpunk</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="sizeSelect">Size:</label>
+                <select id="sizeSelect">
+                    <option value="256">256x256</option>
+                    <option value="512" selected>512x512</option>
+                    <option value="1024">1024x1024</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div id="gallery" class="gallery">
+            <!-- Artworks will be dynamically added here -->
+            <div class="empty-state">
+                <p>🎨 Click "Generate New Art" to create your first artwork!</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Generated with Algorithmic Visual Synthesis</p>
+            <p>Step 5: Web Visualization</p>
+        </div>
+    </footer>
+
+    <script src="gallery.js"></script>
+</body>
+</html>
+

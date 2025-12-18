@@ -1,0 +1,92 @@
+{
+  "automation_config": {
+    "output_dir": "output/automated",
+    "image_size": {
+      "width": 512,
+      "height": 512
+    },
+    "default_settings": {
+      "n_artworks": 20,
+      "seed_start": null,
+      "use_vae": false,
+      "use_gan": false,
+      "quality_threshold": 0.5
+    },
+    "pattern_types": [
+      "sine_wave",
+      "cosine_wave",
+      "spiral",
+      "wave_interference",
+      "random_noise",
+      "perlin_noise",
+      "radial_gradient"
+    ],
+    "colormaps": {
+      "artistic": [
+        "viridis",
+        "plasma",
+        "inferno",
+        "magma",
+        "turbo",
+        "rainbow"
+      ],
+      "custom": [
+        "sunset",
+        "ocean",
+        "aurora",
+        "cyberpunk",
+        "fire",
+        "neon"
+      ]
+    },
+    "color_schemes": [
+      "grayscale",
+      "red",
+      "blue",
+      "green",
+      "rainbow",
+      "warm",
+      "cool"
+    ],
+    "batch_presets": {
+      "quick_test": {
+        "n_artworks": 5,
+        "width": 256,
+        "height": 256,
+        "use_vae": false,
+        "use_gan": false
+      },
+      "standard": {
+        "n_artworks": 20,
+        "width": 512,
+        "height": 512,
+        "use_vae": false,
+        "use_gan": false
+      },
+      "vae_collection": {
+        "n_artworks": 15,
+        "width": 512,
+        "height": 512,
+        "use_vae": true,
+        "use_gan": false
+      },
+      "gan_collection": {
+        "n_artworks": 15,
+        "width": 512,
+        "height": 512,
+        "use_vae": false,
+        "use_gan": true,
+        "quality_threshold": 0.6
+      },
+      "diverse": {
+        "n_artworks": 30,
+        "width": 512,
+        "height": 512,
+        "use_vae": false,
+        "use_gan": false,
+        "diverse": true
+      }
+    }
+  }
+}
+
